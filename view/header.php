@@ -4,8 +4,10 @@
 <!-- the head section -->
 <head>
     <title>SportsPro Technical Support</title>
+
+    <!-- Updated path to an absolute path to allow it to work on all pages -->
     <link rel="stylesheet" type="text/css"
-          href="main.css">
+          href="/SportsPro/main.css">
 </head>
 
 <!-- the body section -->
