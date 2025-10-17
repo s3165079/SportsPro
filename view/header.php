@@ -3,7 +3,7 @@
 <!-- the head section -->
 <head>
     <title>SportsPro Technical Support</title>
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="/SportsPro/main.css">
 </head>
 
 <!-- the body section -->
