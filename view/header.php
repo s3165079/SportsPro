@@ -13,7 +13,7 @@
     <p>Sports management software for the sports enthusiast</p>
     <nav>
         <ul>
-            <li><a href="../index.php">Home</a></li>
+            <li><a href="/SportsPro/index.php">Home</a></li>
         </ul>
     </nav>
 </header>
