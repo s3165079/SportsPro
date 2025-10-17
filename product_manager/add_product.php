@@ -1,5 +1,7 @@
 <?php
 // add_product.php
+// D.Locke: added header for continuity between pages
+include '../view/header.php';
 
 require('../model/database.php');  // Include database connection
 
@@ -33,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->execute();
         $statement->closeCursor();
         // Redirect to product list with success message
-        header('Location: product_list.php?success=Product+Added+Successfully');
+        // D.Locke: Updated location to redirect to index.php
+        header('Location: index.php?action=list_products&success=Product+Added+Successfully');
         exit();
     } catch (PDOException $e) {
         // Debugging output
@@ -84,7 +87,9 @@ if (isset($_GET['success'])) {
 </form>
 
 <br>
-<a href="product_list.php">View Product List</a> |
+<!-- D.Locke: changed href to redirect to index.php and included footer for continuity -->
+<a href="index.php">View Product List</a> |
 <a href="../view/index.php">Home</a>
 </body>
+<?php include '../view/footer.php'; ?>
 </html>
