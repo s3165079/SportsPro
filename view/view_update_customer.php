@@ -1,5 +1,5 @@
 <?php
-require_once('database.php');
+require_once('../model/database.php');
 
 // Get the customer ID from the query string
 $customer_id = filter_input(INPUT_GET, 'customerID', FILTER_VALIDATE_INT);
