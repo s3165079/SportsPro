@@ -1,10 +1,16 @@
 <?php
 // add_product.php
-require('database.php'); // Include database connection
+// D.Locke: added header for continuity between pages
+include '../view/header.php';
+
+require('../model/database.php');  // Include database connection
+
+// Enable error reporting for debugging (make sure this is removed in production)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve and sanitize form data
     $code = trim($_POST['code'] ?? '');
     $name = trim($_POST['name'] ?? '');
     $version = trim($_POST['version'] ?? '');
@@ -12,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate input fields
     if (empty($code) || empty($name) || empty($version) || empty($release_date)) {
-        // If any field is missing, redirect to the error page with a message
         header('Location: error.php?error=Missing+required+fields');
         exit();
     }
@@ -25,12 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->bindValue(':name', $name);
     $statement->bindValue(':version', $version);
     $statement->bindValue(':release_date', $release_date);
-    $statement->execute();
-    $statement->closeCursor();
 
-    // After adding, redirect to the product list page
-    header('Location: product_list.php');
-    exit();
+    try {
+        $statement->execute();
+        $statement->closeCursor();
+        // Redirect to product list with success message
+        // D.Locke: Updated location to redirect to index.php
+        header('Location: index.php?action=list_products&success=Product+Added+Successfully');
+        exit();
+    } catch (PDOException $e) {
+        // Debugging output
+        echo 'Error: ' . $e->getMessage();  // Show the error message for debugging
+        // Redirect to custom error page
+        include('../errors/database_error.php');
+        exit();
+    }
 }
 ?>
 
@@ -40,27 +54,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
+    <link rel="stylesheet" href="../view/style.css">  <!-- Main styles from view folder -->
+    <link rel="stylesheet" href="../view/add_product.css">  <!-- Specific styles for this page -->
 </head>
 <body>
-    <h1>Add New Product</h1>
-    <form action="add_product.php" method="POST">
-        <label for="code">Product Code:</label>
-        <input type="text" id="code" name="code" required><br><br>
+<h1>Add New Product</h1>
 
-        <label for="name">Product Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+<!-- Display success or error message based on query string -->
+<?php
+if (isset($_GET['error'])) {
+    echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
+}
+if (isset($_GET['success'])) {
+    echo '<p style="color:green;">' . htmlspecialchars($_GET['success']) . '</p>';
+}
+?>
 
-        <label for="version">Product Version:</label>
-        <input type="text" id="version" name="version" required><br><br>
+<form action="add_product.php" method="POST">
+    <label for="code">Product Code:</label>
+    <input type="text" id="code" name="code" required><br><br>
 
-        <label for="release_date">Release Date:</label>
-        <input type="date" id="release_date" name="release_date" required><br><br>
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
 
-        <input type="submit" value="Add Product">
-    </form>
+    <label for="version">Product Version:</label>
+    <input type="text" id="version" name="version" required><br><br>
 
-    <br>
-    <a href="product_list.php">View Product List</a> |
-    <a href="index.php">Home</a>
+    <label for="release_date">Release Date:</label>
+    <input type="date" id="release_date" name="release_date" required><br><br>
+
+    <input type="submit" value="Add Product">
+</form>
+
+<br>
+<!-- D.Locke: changed href to redirect to index.php and included footer for continuity -->
+<a href="index.php">View Product List</a> |
+<a href="../view/index.php">Home</a>
 </body>
+<?php include '../view/footer.php'; ?>
 </html>

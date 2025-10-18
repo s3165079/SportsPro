@@ -3,7 +3,7 @@
 <!-- the head section -->
 <head>
     <title>SportsPro Technical Support</title>
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="/SportsPro/main.css">
 </head>
 
 <!-- the body section -->
@@ -13,7 +13,7 @@
     <p>Sports management software for the sports enthusiast</p>
     <nav>
         <ul>
-            <li><a href="../index.php">Home</a></li>
+            <li><a href="/SportsPro/index.php">Home</a></li>
         </ul>
     </nav>
 </header>
