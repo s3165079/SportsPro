@@ -6,24 +6,22 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'search_customers'; // default like list_products
+        $action = 'search_customers';
     }
 }
 
 switch ($action) {
     case 'search_customers':
-        // Keep search page self-contained (minimal changes to that file)
         include('search_customer.php');
         break;
 
     case 'edit_customer':
-        // Load selected customer and show the edit form view
         $customer_id = filter_input(INPUT_POST, 'customerID', FILTER_VALIDATE_INT)
             ?? filter_input(INPUT_GET, 'customerID', FILTER_VALIDATE_INT);
 
         $customer = $customer_id ? (get_customer_by_id($customer_id) ?? []) : [];
-        $updated  = filter_input(INPUT_GET, 'updated'); // optional success flag
-        include('update_customer.php'); // view uses $customer (and $updated if you show a message)
+        $updated  = filter_input(INPUT_GET, 'updated');
+        include('update_customer.php');
         break;
 
     case 'update_customer':
@@ -50,10 +48,16 @@ switch ($action) {
             'password'    => $_POST['password']    !== '' ? $_POST['password']    : ($current['password']    ?? ''),
         ];
 
-        update_customer($cusUpdates);
+        try {
+            update_customer($cusUpdates);
+            $updateStatus = true;
+        } catch (PDOException $e) {
+            $updateStatus = false;
+        }
 
-        // PRG redirect back to the edit view
-        header('Location: index.php?action=edit_customer&customerID=' . urlencode((string)$customer_id) . '&updated=1');
+        header('Location: index.php?action=edit_customer&customerID='
+            . urlencode((string)$customer_id) . '&updated=' . (int)$updateStatus);
+
         exit();
 
     default:

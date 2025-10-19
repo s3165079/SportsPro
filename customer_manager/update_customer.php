@@ -16,11 +16,15 @@ $customer = get_customer_by_id($customer_id);
 <main>
     <h2>View/Update Customer</h2>
 
-    <?php if (isset($_GET['updated']) && $_GET['updated'] === '1'): ?>
-        <h3>
-            Customer record updated successfully.
-        </h3>
-    <?php endif; ?>
+    <?php
+        if (isset($_GET['updated'])) {
+            if ($_GET['updated'] == '1') {
+                echo "<h3>Customer record updated successfully.</h3>";
+            } else {
+                echo "<h3>Update failed.</h3>";
+            }
+        }
+    ?>
 
     <form id="aligned" action="index.php" method="post">
         <input type="hidden" name="action" value="update_customer">
