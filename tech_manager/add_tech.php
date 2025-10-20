@@ -91,7 +91,7 @@ if (isset($_GET['success'])) {
 
 <br>
 <a href="index.php">View Technician List</a> |
-<a href="../view/index.php">Home</a>
+<a href="/SportsPro/index.php">Home</a>
 </body>
 <?php include '../view/footer.php'; ?>
 </html>
