@@ -89,7 +89,7 @@ if (isset($_GET['success'])) {
 <br>
 <!-- D.Locke: changed href to redirect to index.php and included footer for continuity -->
 <a href="index.php">View Product List</a> |
-<a href="../view/index.php">Home</a>
+<a href="/SportsPro/index.php">Home</a>
 </body>
 <?php include '../view/footer.php'; ?>
 </html>
