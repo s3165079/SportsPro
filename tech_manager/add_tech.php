@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->execute();
         $statement->closeCursor();
         // Redirect to technician list with success message
-        header('Location: index.php?action=technician_list&success=Technician+Added+Successfully');
+        header('Location: index.php?action=tech_list&success=Technician+Added+Successfully');
         exit();
     } catch (PDOException $e) {
         // Debugging output
@@ -90,8 +90,8 @@ if (isset($_GET['success'])) {
 </form>
 
 <br>
-<a href="index.php?action=technician_list">View Technician List</a> |
-<a href="../view/index.php">Home</a>
+<a href="index.php">View Technician List</a> |
+<a href="/SportsPro/index.php">Home</a>
 </body>
 <?php include '../view/footer.php'; ?>
 </html>
