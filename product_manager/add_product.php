@@ -1,5 +1,4 @@
 <?php
-// add_product.php
 // D.Locke: added header for continuity between pages
 include '../view/header.php';
 
@@ -8,6 +7,19 @@ require('../model/database.php');  // Include database connection
 // Enable error reporting for debugging (make sure this is removed in production)
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
+function dateNormalize($input){
+    $formats = ['d-m-Y', 'Y-d-m', 'F j, Y', 'Y-m-d'];
+
+    foreach ($formats as $fmt) {
+        $chkDate = DateTime::createFromFormat($fmt, $input);
+        if ($chkDate !== false) {
+            return $chkDate->format('Y-m-d'); // normalized
+        }
+    }
+    // If no format matched
+    return false;
+}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: error.php?error=Missing+required+fields');
         exit();
     }
+
+    $normalized = dateNormalize($release_date);
+    if ($normalized === false) {
+        header('Location: error.php?error=Invalid+Date+Format');
+        exit();
+    }
+    $release_date = $normalized;
 
     // SQL query to insert the product data into the database
     $query = 'INSERT INTO products (productCode, name, version, releaseDate)
@@ -80,8 +99,11 @@ if (isset($_GET['success'])) {
     <label for="version">Product Version:</label>
     <input type="text" id="version" name="version" required><br><br>
 
-    <label for="release_date">Release Date:</label>
-    <input type="date" id="release_date" name="release_date" required><br><br>
+    <div style="display: flex; align-items: center;">
+        <label for="release_date" style="margin-right: 8px;">Release Date:</label>
+        <input type="text" id="release_date" name="release_date" placeholder="place the date here" required><br><br>
+        <span style="margin-left: 8px;">Use any valid date format</span>
+    </div>
 
     <input type="submit" value="Add Product">
 </form>
