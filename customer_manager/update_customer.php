@@ -77,7 +77,7 @@ $customer = get_customer_by_id($customer_id);
     </form>
 
     <a href="index.php?action=search_customers">Search Customer</a> |
-    <a href="index.php">Home</a>
+    <a href="/SportsPro/index.php">Home</a>
 </main>
 
 <?php include('../view/footer.php'); ?>
