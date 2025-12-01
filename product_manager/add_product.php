@@ -50,46 +50,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <link rel="stylesheet" href="../view/style.css">  <!-- Main styles from view folder -->
-    <link rel="stylesheet" href="../view/add_product.css">  <!-- Specific styles for this page -->
-</head>
-<body>
-<h1>Add New Product</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Product</title>
+        <link rel="stylesheet" href="../view/style.css">  <!-- Main styles from view folder -->
+        <link rel="stylesheet" href="../view/add_product.css">  <!-- Specific styles for this page -->
+    </head>
+    <body>
+        <main>
+            <h1>Add New Product</h1>
 
-<!-- Display success or error message based on query string -->
-<?php
-if (isset($_GET['error'])) {
-    echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
-}
-if (isset($_GET['success'])) {
-    echo '<p style="color:green;">' . htmlspecialchars($_GET['success']) . '</p>';
-}
-?>
+            <!-- Display success or error message based on query string -->
+            <?php
+            if (isset($_GET['error'])) {
+                echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
+            }
+            if (isset($_GET['success'])) {
+                echo '<p style="color:green;">' . htmlspecialchars($_GET['success']) . '</p>';
+            }
+            ?>
 
-<form action="add_product.php" method="POST">
-    <label for="code">Product Code:</label>
-    <input type="text" id="code" name="code" required><br><br>
+            <form id="aligned" action="add_product.php" method="POST">
+                <label for="code">Product Code:</label>
+                <input type="text" id="code" name="code" required><br>
 
-    <label for="name">Product Name:</label>
-    <input type="text" id="name" name="name" required><br><br>
+                <label for="name">Product Name:</label>
+                <input type="text" id="name" name="name" required><br>
 
-    <label for="version">Product Version:</label>
-    <input type="text" id="version" name="version" required><br><br>
+                <label for="version">Product Version:</label>
+                <input type="text" id="version" name="version" required><br>
 
-    <label for="release_date">Release Date:</label>
-    <input type="date" id="release_date" name="release_date" required><br><br>
+                <label for="release_date">Release Date:</label>
+                <input type="date" id="release_date" name="release_date" required><br>
 
-    <input type="submit" value="Add Product">
-</form>
+                <input type="submit" value="Add Product">
+            </form>
 
-<br>
-<!-- D.Locke: changed href to redirect to index.php and included footer for continuity -->
-<a href="index.php">View Product List</a> |
-<a href="/SportsPro/index.php">Home</a>
-</body>
-<?php include '../view/footer.php'; ?>
+            <br>
+            <!-- D.Locke: changed href to redirect to index.php and included footer for continuity -->
+            <a href="index.php">View Product List</a> |
+            <a href="/SportsPro/index.php">Home</a>
+        </main>
+    </body>
+    <?php include '../view/footer.php'; ?>
 </html>
