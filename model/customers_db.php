@@ -68,3 +68,14 @@ function update_customer(array $cusUpdates): void {
 
 }
 
+function get_all_countries() {
+    global $db;
+
+    $stmt = $db->prepare('SELECT * 
+                            FROM countries 
+                            ORDER BY countryName ASC');
+    $stmt->execute();
+
+    // Fetch all rows as associative arrays
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
