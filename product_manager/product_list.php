@@ -20,7 +20,7 @@
                     <td><?php echo htmlspecialchars($product['productCode']); ?></td>
                     <td><?php echo htmlspecialchars($product['name']); ?></td>
                     <td><?php echo htmlspecialchars($product['version']); ?></td>
-                    <td><?php echo htmlspecialchars($product['releaseDate']); ?></td>
+                    <td><?php echo htmlspecialchars($product['formattedDate']); ?></td>
                     <td>
                         <form method="post" action=".">
                             <input type="hidden" name="action" value="delete_product">

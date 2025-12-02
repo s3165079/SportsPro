@@ -1,4 +1,4 @@
-A<?php
+<?php
 // add_tech.php
 // Based on add_product.php, adapted for technicians
 include '../view/header.php';
@@ -50,48 +50,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Technician</title>
-    <link rel="stylesheet" href="../view/style.css">  <!-- Main styles -->
-    <link rel="stylesheet" href="../view/add_tech.css"> <!-- Specific styles for this page -->
-</head>
-<body>
-<h1>Add New Technician</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Technician</title>
+        <link rel="stylesheet" href="../view/style.css">  <!-- Main styles -->
+        <link rel="stylesheet" href="../view/add_tech.css"> <!-- Specific styles for this page -->
+    </head>
+    <body>
+        <main>
+            <h1>Add New Technician</h1>
 
-<!-- Display success or error message based on query string -->
-<?php
-if (isset($_GET['error'])) {
-    echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
-}
-if (isset($_GET['success'])) {
-    echo '<p style="color:green;">' . htmlspecialchars($_GET['success']) . '</p>';
-}
-?>
+            <!-- Display success or error message based on query string -->
+            <?php
+            if (isset($_GET['error'])) {
+                echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
+            }
+            if (isset($_GET['success'])) {
+                echo '<p style="color:green;">' . htmlspecialchars($_GET['success']) . '</p>';
+            }
+            ?>
 
-<form action="add_tech.php" method="POST">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required><br><br>
+            <form id="aligned" action="add_tech.php" method="POST">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required><br>
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required><br><br>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
 
-    <label for="phone">Phone:</label>
-    <input type="text" id="phone" name="phone" required><br><br>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required><br>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
 
-    <input type="submit" value="Add Technician">
-</form>
+                <input type="submit" value="Add Technician">
+            </form>
 
-<br>
-<a href="index.php">View Technician List</a> |
-<a href="/SportsPro/index.php">Home</a>
-</body>
-<?php include '../view/footer.php'; ?>
+            <br>
+            <a href="index.php">View Technician List</a> |
+            <a href="/SportsPro/index.php">Home</a>
+        </main>
+    </body>
+    <?php include '../view/footer.php'; ?>
 </html>
