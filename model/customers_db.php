@@ -60,8 +60,10 @@ function get_registration($customerID, $productCode) {
     $statement->bindValue(':customerID', $customerID);
     $statement->bindValue(':productCode', $productCode);
     $statement->execute();
-    $statement->fetch(PDO::FETCH_ASSOC);
+    $registration = $statement->fetch(PDO::FETCH_ASSOC);
     $statement->closeCursor();
+
+    return $registration;
 }
 
 function add_registration($customerID, $productCode) {

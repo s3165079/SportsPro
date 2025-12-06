@@ -1,4 +1,8 @@
 <?php
+
+session_set_cookie_params(0, '/');
+session_start();
+
 require('../model/database.php');
 require('../model/customers_db.php');
 require('../model/product_db.php');
@@ -7,7 +11,15 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'login_customer';
+        // If customer is logged in, go to register product WM 12/6/25
+        if (isset($_SESSION['customer'])){
+            $customer = $_SESSION['customer'];
+            $products = get_products();
+            include('product_register.php');
+            exit();
+        } else {
+            $action = 'login_customer';
+        }
     }
 }
 
@@ -30,17 +42,30 @@ if ($action == 'login_customer') {
         include('../errors/error.php');
         exit();
     }
+
+    // store customer data in session WM 12/6/25
+    $_SESSION['customer'] = $customer;
     
     $products = get_products();
     include('product_register.php');
     
 } else if ($action == 'register_product') {
-    $customer_id = filter_input(INPUT_POST, 'customer_id', FILTER_VALIDATE_INT);
+
+    // get the customer from session, send back to login if not logged in WM 12/6/25
+    if(!isset($_SESSION['customer'])){
+        $email = '';
+        include('customer_login.php');
+        exit();
+    }
+
+    $customer = $_SESSION['customer'];
+    $customer_id = $customer['customerID'];
     $product_code = filter_input(INPUT_POST, 'product_code');
     
     // only add if not already registered
     $registration = get_registration($customer_id, $product_code);
-    if ($registration === NULL) {
+
+    if (!$registration) {
         add_registration($customer_id, $product_code);
         header("Location: .?action=success&product_code=$product_code");
     } else {
