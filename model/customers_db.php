@@ -34,6 +34,50 @@ function get_customer_by_id($customerID){
     return $customer;
 }
 
+function get_customer_by_email($email){
+    global $db;
+
+    $query = 'SELECT customerID, firstName, lastName, address, city, state,
+                         postalCode, countryCode, phone, email, password
+                  FROM customers
+                  WHERE email = :email';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email);
+    $statement->execute();
+    $customer = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    return $customer;
+}
+
+function get_registration($customerID, $productCode) {
+    global $db;
+
+    $query = 'SELECT * FROM registrations
+              WHERE customerID = :customerID
+              AND productCode = :productCode';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':customerID', $customerID);
+    $statement->bindValue(':productCode', $productCode);
+    $statement->execute();
+    $registration = $statement->fetch(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    return $registration;
+}
+
+function add_registration($customerID, $productCode) {
+    global $db;
+
+    $query = 'INSERT INTO registrations (customerID, productCode, registrationDate)
+              VALUES (:customerID, :productCode, NOW())';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':customerID', $customerID);
+    $statement->bindValue(':productCode', $productCode);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 function update_customer(array $cusUpdates): void {
     global $db;
 
