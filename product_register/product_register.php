@@ -1,4 +1,5 @@
 <?php include '../view/header.php'; ?>
+
 <main>
 
     <h2>Register Product</h2>
@@ -6,8 +7,6 @@
     <?php if (!empty($message)) : ?>
         <p><?php echo $message; ?></p>
     <?php else: ?>
-
-        <p>You are logged in as <?php echo htmlspecialchars($customer['email']); ?></p>
 
         <form action="." method="post" id="aligned">
             <input type="hidden" name="action" value="register_product">
@@ -28,6 +27,13 @@
 
             <label>&nbsp;</label>
             <input type="submit" value="Register Product" />
+        </form>
+        <p>You are logged in as
+                <?php echo htmlspecialchars($_SESSION['customer']['email']); ?>
+            </p>
+        <form action="." method="post" style="margin: 0;">
+            <input type="hidden" name="action" value="logout">
+            <input type="submit" value="Logout">
         </form>
     <?php endif; ?>
 

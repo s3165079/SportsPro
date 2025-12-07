@@ -72,6 +72,11 @@ if ($action == 'login_customer') {
         $error = "Product ($product_code) is already registered. Please try again.";
         include('../errors/error.php');
     }
+} else if ($action == 'logout') {
+    $_SESSION = [];
+    session_destroy();
+    header("Location: .?action=login_customer");
+    exit();
 } else if ($action == 'success') {
     $product_code = filter_input(INPUT_GET, 'product_code');
     $message = "Product ($product_code) was registered successfully.";
