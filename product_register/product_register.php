@@ -2,18 +2,18 @@
 <main>
 
     <h2>Register Product</h2>
+    
     <?php if (!empty($message)) : ?>
         <p><?php echo $message; ?></p>
     <?php else: ?>
+
+        <p>You are logged in as <?php echo htmlspecialchars($customer['email']); ?></p>
+
         <form action="." method="post" id="aligned">
-            <input type="hidden" name="action" 
-                   value="register_product">
-            <input type="hidden" name="customer_id" 
-                   value="<?php echo htmlspecialchars($customer['customerID']); ?>">
+            <input type="hidden" name="action" value="register_product">
 
             <label>Customer:</label>
-            <label><?php echo htmlspecialchars($customer['firstName'] . ' ' . 
-                                              $customer['lastName']) ?></label>
+            <label><?php echo htmlspecialchars($customer['firstName'] . ' ' . $customer['lastName']); ?></label>
             <br>
 
             <label>Product:</label>
